@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex1</title>
+</head>
+<body>
+    <script>
+        // Escriu aquí el teu codi
+        /*Les variables que hauràs de declarar són:
+            • nom (nom de l’alumne).
+            • assignatura (una matèria que t’estiguis preparant).
+            • horesSetmanals (hores dedicades a estudiar cada setmana).
+            • setmanesFinsExamen (setmanes que falten fins a l’examen).
+        Un cop definides, cal calcular:
+            • El total d’hores d’estudi disponibles fins a l’examen.
+            • Si aquest total és menor de 50 hores, s'ha de mostrar per consola:
+            «Hauries d’estudiar més hores».
+            • Si és igual o superior a 50 hores, s'ha de mostrar:
+            «Tens una bona planificació».*/
+
+        const nom = "Victor";
+        let assignatura = "Desenvolupament web en entorn client";
+        let horesSetmanals = 20;
+        let setmanesFinsExamen = 2;
+        
+        let horesTotals =  horesSetmanals * setmanesFinsExamen;
+        if(horesTotals < 50){
+            console.log("Hauries d'estudiar més hores");
+        }else{
+            console.log("Tens una bona planificació.");
+        }
+
+    </script>
+</body>
+</html>
