@@ -12,7 +12,77 @@
 
     <script>
         // Escriu aquí el teu codi
-        
+        /*EXERCICI 4: Objectes predefinits a JavaScript: String, Date, Math, etc. (1.75 punts)
+En aquest exercici treballarem amb l’objecte Date i amb expressions regulars.
+Proposem crear una aplicació que:
+    1. Demani dues dates a l’usuari en format dd/mm/yyyy (una data inicial i una data final).
+    2. Validi el format utilitzant una expressió regular (/^\d{2}\/\d{2}\/\d{4}$/).
+    3. Si el format no és correcte, s'ha de mostrar un missatge d’error amb alert() i caldrà tornar a repreguntar les dates.
+    4. Converteixi les dates introduïdes en objectes Date.
+    5. Calculi el nombre de dies totals entre les dues dates.
+    6. Comptabilitzi només quants d’aquests dies són dies laborables (de dilluns a divendres).
+Finalment, cal mostrar els resultats en un alert(), amb un missatge del tipus:
+«Entre el 01/03/2025 i el 15/03/2025 hi ha 14 dies totals, dels quals 10 són dies laborables».
+*/
+        let regexp = /^\d{2}\/\d{2}\/\d{4}$/;
+        let dataIniciStr;
+        let dataFinalStr;
+        let dataInici;
+        let dataFinal;
+
+        do{
+            dataIniciStr = checkPrompt("Escriu una data inicial, el format ha de ser dd/mm/yyyy");
+            dataFinalStr = checkPrompt("Escriu una data final, el format ha de ser dd/mm/yyyy");
+            dataInici = parseDataFormat(dataIniciStr);
+            dataFinal = parseDataFormat(dataFinalStr);
+            if(dataFinal < dataInici){
+                alert(`La data final ha de ser posterior a la data d'inici.`);
+            }
+        }while(dataFinal < dataInici);
+       
+        function checkPrompt(text){
+            let dataValida;
+            do{
+                dataValida = window.prompt(text);
+                if(dataValida == null){
+                    return null;
+                }
+                if(regexp.test(dataValida)){
+                    return dataValida;
+                }else{
+                    alert("El format no es correcte, recorda: dd/mm/yyyy.");
+                }
+            }while(dataValida != false);
+        }
+
+        function parseDataFormat(data){
+            const dataParts = data.split('/');
+            console.log("Data partida en dia, mes, any: " + dataParts[0]+", " +dataParts[1]+", " +dataParts[2]);
+            
+            return new Date(dataParts[2], dataParts[1] - 1, dataParts[0]);
+        }
+
+        function countDiesLaborables(dataInici, dataFinal){
+            let comptador = 0;
+            while(dataInici <= dataFinal){
+                if(dataInici.getDay() >= 1 && dataInici.getDay() <= 5){
+                    comptador++;
+                }
+                dataInici.setDate(dataInici.getDate() + 1);
+            }
+            return comptador;
+        }
+        console.log("Data inici: " + dataInici);
+        console.log("Data final: " + dataFinal);
+        console.log("Data inici en milisegons: " + dataInici.getTime());
+        console.log("Data final en milisegons: " +dataFinal.getTime());
+
+
+        let tempsTotal = dataFinal.getTime() - dataInici.getTime();
+        alert(`Entre el ${dataIniciStr} i el ${dataFinalStr} hi ha un total de ${Mathfloor(tempsTotal/1000/3600/24)} dies, ` +
+         `dels quals ${countDiesLaborables(dataInici, dataFinal)} son dies laborables.`);
+    
+
                 
     </script>
 </body>
