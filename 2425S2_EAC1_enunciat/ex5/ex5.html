@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex5</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #info {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <p id="info">Aquí es mostrarà la informació.</p>
+    <script>
+        // Aquí has d'implementar la lògica de l'exercici.
+        let info = document.getElementById('info');
+        let navLang = navigator.language;
+        let navInfo = navigator.userAgent;
+        let width = window.innerWidth;
+        let heigth = window.innerHeight;
+
+        let items = {navLang, navInfo, width, heigth};
+        let itemsValues = Object.values(items)
+        console.log(navLang);
+        console.log(navInfo);
+
+        for (let element of itemsValues){
+            info.innerHTML += element + "<br>";
+        }
+        
+        if(navLang.includes("es")){
+            document.body.style.backgroundColor = "blue";
+        }else if(navLang.includes("ca")){
+            document.body.style.backgroundColor = "green";
+        }else{
+            document.body.style.backgroundColor = "gray";
+        }
+        
+        
+
+        
+    </script>
+</body>
+</html>
