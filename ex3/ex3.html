@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex3</title>
+</head>
+<body>
+    <script>
+        // Escriu aquí el teu codi
+        let usuari = window.prompt("Usuari:");
+        let pin;
+        let checkPasswd = "1234";
+        let tries = 3;
+        while(tries > 0 && pin != checkPasswd){
+            pin = window.prompt("PIN: (4 xifres)");
+            tries -= 1;
+        }
+        if(tries > 0){
+            alert("Benvingut/da!");
+        }else{
+            alert("Acces bloquejat.")
+        }
+    </script>
+</body>
+</html>

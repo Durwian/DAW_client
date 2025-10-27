@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex2</title>
+</head>
+<body>
+    <script>
+        // Escriu aquí el teu codi
+        let nom = window.prompt("Quin es el teu nom?");
+        let alcada = window.prompt("Quina alçada tens? (en metres)");
+        let pes = window.prompt("Quin és el teu pes?");
+        let imc = pes / (alcada * alcada);
+        let missatge; 
+        
+        if(imc < 18.5){
+            missatge = "un pes baix."
+        }else if(imc >= 18.5 && imc < 25){
+            missatge = "un pes saludable."
+        }else if(imc >= 25 && imc < 30){
+            missatge = "sobrepès."
+        }else{
+            missatge = "obesitat."
+        }
+
+        alert("Hola " + nom + ", el teu IMC és " + imc + " i això indica que tens " + missatge);
+
+    </script>
+</body>
+</html>
