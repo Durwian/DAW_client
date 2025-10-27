@@ -39,7 +39,7 @@ Finalment, cal mostrar els resultats en un alert(), amb un missatge del tipus:
                 alert(`La data final ha de ser posterior a la data d'inici.`);
             }
         }while(dataFinal < dataInici);
-       
+
         function checkPrompt(text){
             let dataValida;
             do{
@@ -80,10 +80,8 @@ Finalment, cal mostrar els resultats en un alert(), amb un missatge del tipus:
 
         let tempsTotal = dataFinal.getTime() - dataInici.getTime();
         alert(`Entre el ${dataIniciStr} i el ${dataFinalStr} hi ha un total de ${Mathfloor(tempsTotal/1000/3600/24)} dies, ` +
-         `dels quals ${countDiesLaborables(dataInici, dataFinal)} son dies laborables.`);
-    
+        `dels quals ${countDiesLaborables(dataInici, dataFinal)} son dies laborables.`);
 
-                
     </script>
 </body>
 </html>
