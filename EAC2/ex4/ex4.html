@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex4</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1em;
+        }
+
+        h1 {
+            font-size: 1.3em;
+            margin-bottom: 0;
+        }
+
+        p {
+            margin-top: 0;
+            color:#888;
+        }
+
+        button {
+            margin: 10px 0;
+        }
+
+        body {
+            padding: 2%;
+        }
+    </style>
+</head>
+<body onload="mostrar()">
+    <fieldset>
+        <legend for="item">Escriu una tasca a la TODO list</legend>
+        <input type="text" name="item" id="item" placeholder="Nom de la tasca">
+        <button onclick="afegir()">Afegir</button>
+        <br>
+        <input type="text" name="identificador" id="identificador"  placeholder="Identificador de la tasca">
+        <button onclick="esborrar()">Esborrar</button>
+    
+        <div>
+            <button onclick="ordenarCronologicament()">Ordre conològic</button>
+            <button onclick="ordenarAlfabeticament()">Ordre alfebètic</button>
+            <button onclick="esborrarTot()">Esborrar totes les tasques</button>
+        </div>
+    </fieldset>
+    <br>
+    <div id="TODOlist"></div>
+
+    <script src="ex4.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex2</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 700px;
+            margin: 2rem auto;
+            line-height: 1.4;
+        }
+
+        label {
+            display: block;
+            margin-top: .75rem;
+        }
+
+        input {
+            padding: .4rem .6rem;
+            margin-top: .25rem;
+        }
+
+        .btns {
+            display: flex;
+            gap: .5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: .5rem .8rem;
+            cursor: pointer;
+        }
+
+        #resultat ul {
+            padding-left: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Petit planificador d'alarmes</h1>
+
+    <label for="hora">Hora de l'alarma</label>
+    <input type="time" id="hora" />
+
+    <label for="dies">Dies consecutius</label>
+    <input type="number" id="dies" min="1" value="1" />
+
+    <div class="btns">
+        <button id="programa" onclick="programa()">Programa</button>
+        <button id="llista" onclick="llista()">Llista alarmes</button>
+        <button id="esborra" onclick="esborraTotes()">Esborra totes</button>
+    </div>
+
+    <div id="resultat"></div>
+</body>
+
+</html>
