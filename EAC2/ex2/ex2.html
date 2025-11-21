@@ -57,6 +57,47 @@
     </div>
 
     <div id="resultat"></div>
+
+    <script>
+        let alarmes = [];
+        let hora = document.getElementById("hora").value;
+        let dies = document.getElementById("dies").value;
+        let resultat = document.getElementById("resultat");
+        localStorage.setItem("alarmes", alarmes);
+        
+        
+        function programa(){
+            
+            let alarma = new Date.now();
+            let minuts = 
+            alarma.setHours(hora.trim(":"))
+            alarma.setHours(hora.trim(":"));
+            console.log(typeof(alarma));
+            if(checkDies() != -1 && hora != null){;
+                alarmes.push(alarma);
+                localStorage.setItem("alarmes", alarmes);
+            }
+            console.log(alarmes);
+        }
+
+        function llista(){
+            resultat.innerHTML = "<ul>";
+            for(let alarma in alarmes){
+                resultat.innerHTML = resultat.value + "<il>" + alarmes[alarma] + "</li>";
+            }
+            resultat.innerHTML = resultat.value + "</ul>";
+        }
+
+        function esborraTotes(){
+            localStorage.clear();
+            alarmes = [];
+            resultat.innerHTML = "";
+        }
+
+        function checkDies(){
+            return 0;
+        }
+    </script>
 </body>
 
 </html>

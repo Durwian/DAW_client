@@ -102,7 +102,43 @@
 
     <script>
        // Escriu aquí el teu codi
+        let text = document.getElementById("text").value;
+        let resultat = document.getElementById("resultat");
+        function analitzar(){
+            let caracters = text.length;
+            let paraules = text.split(" ");
+            let comptador = [];
+            let repetides = [];
+            let resultats = [caracters, paraules, repetides];
+            console.log("Caracters: " + caracters);
+            console.log("Paraules: " + paraules.length);
 
+            for(let paraula of paraules){
+                if(comptador[paraula] === undefined){
+                    comptador[paraula] = 1;
+                }else{
+                    comptador[paraula]++;
+                }
+            }
+            console.log(comptador);
+            for(let p in comptador){
+                if(comptador[p] > 1){
+                    repetides.push(p);
+                } 
+            }
+            console.log(repetides);
+        
+        resultat.innerHTML = `
+            <h3>Resultats</h3>
+                <ul>
+                    <li><strong>Caràcters:</strong> ${caracters}</li>
+                    <li><strong>Paraules totals:</strong> ${paraules.length}</li>
+                    <li><strong>Paraules repetides:</strong>
+                        ${repetides.length > 0 ? repetides.join(", ") : "Cap"}
+                    </li>
+                </ul>
+            `;
+        }
     </script>
 </body>
 
