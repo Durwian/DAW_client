@@ -59,33 +59,33 @@
     <div id="resultat"></div>
 
     <script>
-        let alarmes = [];
-        let hora = document.getElementById("hora").value;
-        let dies = document.getElementById("dies").value;
+        let alarmes = JSON.parse(localStorage.getItem("alarmes") || "[]");
         let resultat = document.getElementById("resultat");
-        localStorage.setItem("alarmes", alarmes);
-        
-        
+
         function programa(){
-            
-            let alarma = new Date.now();
-            let minuts = 
-            alarma.setHours(hora.trim(":"))
-            alarma.setHours(hora.trim(":"));
-            console.log(typeof(alarma));
-            if(checkDies() != -1 && hora != null){;
-                alarmes.push(alarma);
-                localStorage.setItem("alarmes", alarmes);
+            const hora = document.getElementById("hora").value;
+            const dies = Number(document.getElementById("dies").value);
+        //  let alarmaTime = hora.trim(":");
+        //let horaActual = Date.now();
+        // horaActual.setHours(alarmaTime[0],alarmaTime[1]);
+
+            console.log(typeof(alarmaTime));
+            for(let i = 0; i < dies; i++){
+                alarmes.push(hora);
             }
+            localStorage.setItem("alarmes", alarmes);
+            
             console.log(alarmes);
         }
 
         function llista(){
-            resultat.innerHTML = "<ul>";
+            let html = "<ul>";
             for(let alarma in alarmes){
-                resultat.innerHTML = resultat.value + "<il>" + alarmes[alarma] + "</li>";
+                html += "<il>" + alarma + "</li>";
             }
-            resultat.innerHTML = resultat.value + "</ul>";
+            html += "</ul>";
+
+            resultat.innerHTML = html;
         }
 
         function esborraTotes(){
@@ -94,9 +94,7 @@
             resultat.innerHTML = "";
         }
 
-        function checkDies(){
-            return 0;
-        }
+        
     </script>
 </body>
 
