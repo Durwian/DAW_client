@@ -60,28 +60,39 @@
 
     <script>
         let alarmes = JSON.parse(localStorage.getItem("alarmes") || "[]");
+        console.log(alarmes);
         let resultat = document.getElementById("resultat");
 
         function programa(){
-            const hora = document.getElementById("hora").value;
+            console.log(alarmes);
+            const alarmaProgramada = document.getElementById("hora").value.split(":");
             const dies = Number(document.getElementById("dies").value);
-        //  let alarmaTime = hora.trim(":");
-        //let horaActual = Date.now();
-        // horaActual.setHours(alarmaTime[0],alarmaTime[1]);
-
-            console.log(typeof(alarmaTime));
-            for(let i = 0; i < dies; i++){
-                alarmes.push(hora);
-            }
-            localStorage.setItem("alarmes", alarmes);
+            const dataActual = new Date(Date.now());
+            let alarma = new Date(dataActual.getTime());
+            alarma.setHours(alarmaProgramada[0],alarmaProgramada[1]);
             
+            console.log("Alarma programada: " + alarmaProgramada[0] + ":" + alarmaProgramada[1]);
+            console.log("Data i hora actual: " + dataActual);
+
+            if(alarma >= dataActual){
+                alarma.setTime(alarma.getTime() + (24 * 60 * 60 * 1000));
+            }
+            console.log(alarma);
+
+            for(let i = 0; i < dies; i++){
+                alarmes.push(alarma);
+            }
+
+            llista();
+            localStorage.setItem("alarmes", JSON.stringify(alarmes));
+            alert("Alarma programada per les: " + alarmaProgramada[0] +":" + alarmaProgramada[1] + "el dia " + alarma.getTime() +". ");
             console.log(alarmes);
         }
 
         function llista(){
             let html = "<ul>";
-            for(let alarma in alarmes){
-                html += "<il>" + alarma + "</li>";
+            for(let alarma of alarmes){
+                html += `<li>${alarma.getTime()} ${alarma.getHours()}:${alarma.getHours()} - } </li>`;
             }
             html += "</ul>";
 
@@ -91,7 +102,7 @@
         function esborraTotes(){
             localStorage.clear();
             alarmes = [];
-            resultat.innerHTML = "";
+            resultat.innerHTML = "No hi ha alarmes programades";
         }
 
         
