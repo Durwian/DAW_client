@@ -127,7 +127,9 @@
                 } 
             }
             console.log(repetides);
-        
+        if(resultat.hasChildNodes()){
+            resultat.remove(resultat.children);
+        };
         resultat.innerHTML = `
             <h3>Resultats</h3>
                 <ul>

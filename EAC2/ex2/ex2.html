@@ -74,7 +74,8 @@
             console.log("Alarma programada: " + alarmaProgramada[0] + ":" + alarmaProgramada[1]);
             console.log("Data i hora actual: " + dataActual);
 
-            if(alarma >= dataActual){
+            if(alarma <= dataActual){
+                console.log("GetTime: " + alarma.getTime())
                 alarma.setTime(alarma.getTime() + (24 * 60 * 60 * 1000));
             }
             console.log(alarma);
@@ -88,11 +89,14 @@
             alert("Alarma programada per les: " + alarmaProgramada[0] +":" + alarmaProgramada[1] + "el dia " + alarma.getTime() +". ");
             console.log(alarmes);
         }
-
+        
         function llista(){
             let html = "<ul>";
+            let aux = new Date();
+            
             for(let alarma of alarmes){
-                html += `<li>${alarma.getTime()} ${alarma.getHours()}:${alarma.getHours()} - } </li>`;
+                aux.setTime(new Date(Date.now()).getTime() - alarma.getTime());
+                html += `<li> ${dataFormat(alarma)}   ${alarma.getHours()}:${alarma.getMinutes().toString().padEnd(2,"0")}  -  ${aux.getMilliseconds()* 1000} segons </li>`;
             }
             html += "</ul>";
 
@@ -105,6 +109,13 @@
             resultat.innerHTML = "No hi ha alarmes programades";
         }
 
+        function dataFormat(dataFormatar){
+            let dia = dataFormatar.getDate();
+            let mes = dataFormatar.getMonth() + 1;
+            let any = dataFormatar.getFullYear();
+
+            return `${dia}/${mes}/${any}`;
+        }
         
     </script>
 </body>
