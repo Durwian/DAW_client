@@ -59,17 +59,21 @@
     <div id="resultat"></div>
 
     <script>
-        let alarmes = JSON.parse(localStorage.getItem("alarmes") || "[]");
-        console.log(alarmes);
+        let alarmes = llegirJSON(JSON.parse(localStorage.getItem("alarmes") || "[]"));
         let resultat = document.getElementById("resultat");
-
+        console.log(alarmes);
+        setInterval(llista, 60000);
         function programa(){
-            console.log(alarmes);
             const alarmaProgramada = document.getElementById("hora").value.split(":");
+            if(alarmaProgramada[1] == null){
+                alert("Cal posar l'hora de l'alarma.");
+                return;
+            }
             const dies = Number(document.getElementById("dies").value);
             const dataActual = new Date(Date.now());
             let alarma = new Date(dataActual.getTime());
             alarma.setHours(alarmaProgramada[0],alarmaProgramada[1]);
+
             
             console.log("Alarma programada: " + alarmaProgramada[0] + ":" + alarmaProgramada[1]);
             console.log("Data i hora actual: " + dataActual);
@@ -82,21 +86,25 @@
 
             for(let i = 0; i < dies; i++){
                 alarmes.push(alarma);
+                if(dies > 1){
+                    alarma = new Date(alarma.getTime() + (24 * 60 * 60 * 1000));
+                }
             }
 
             llista();
             localStorage.setItem("alarmes", JSON.stringify(alarmes));
-            alert("Alarma programada per les: " + alarmaProgramada[0] +":" + alarmaProgramada[1] + "el dia " + alarma.getTime() +". ");
             console.log(alarmes);
+            ;
         }
         
         function llista(){
             let html = "<ul>";
             let aux = new Date();
-            
+            alarmes.sort((a, b) => new Date(a) - new Date(b))
             for(let alarma of alarmes){
-                aux.setTime(new Date(Date.now()).getTime() - alarma.getTime());
-                html += `<li> ${dataFormat(alarma)}   ${alarma.getHours()}:${alarma.getMinutes().toString().padEnd(2,"0")}  -  ${aux.getMilliseconds()* 1000} segons </li>`;
+                console.log("Data alarma->" + alarma)
+                aux = new Date(alarma.getTime() - new Date(Date.now()).getTime());
+                html += `<li> ${dataFormat(alarma)}   ${alarma.getHours()}:${alarma.getMinutes().toString().padEnd(2,"0")}  -  falta ${aux.getDate()} dies, ${aux.getHours()} hores i ${aux.getMinutes()} minuts </li>`;
             }
             html += "</ul>";
 
@@ -115,6 +123,16 @@
             let any = dataFormatar.getFullYear();
 
             return `${dia}/${mes}/${any}`;
+        }
+
+        function llegirJSON(alarmes){
+            if(alarmes){
+                for(let i=0;i < alarmes.length; i ++){
+                    alarmes[i] = new Date(alarmes[i]);
+                }
+                return alarmes;
+            }
+            return null;
         }
         
     </script>
