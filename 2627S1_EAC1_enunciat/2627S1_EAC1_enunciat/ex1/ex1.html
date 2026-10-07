@@ -9,23 +9,15 @@
 
 <body>
     <script>
-       
-        /* Escriurem un script que simularà la lectura de temperatura d'un sensor. El programa ha d'agafar un 
-        valor en format text, assignat a una variable en el propi codi pel desenvolupador, i convertir-lo a 
-        un nombre decimal fent servir parseFloat().
-        A continuació, utilitzarem la funció global isNaN() per validar si el valor obtingut és realment un número.
-        Si no és vàlid, mostra un missatge d'error per la consola del navegador.
-        Si és correcte, avalua la temperatura mitjançant estructures condicionals (if / else): si baixa de 18 graus, 
-        el sistema ha de mostrar per consola "Calefacció activa". En cas contrari, ha de mostrar "Sistema en repòs".*/
-        
+              
         let temperatura = "20.5";
         console.log("TEMPERATURA ES DE TIPUS: " + typeof(temperatura));
         temperatura = parseFloat(temperatura); //Aprofitem el tipat dèbil i així no creem una altra variable
         console.log("ARA, TEMPERATURA ES DE TIPUS: " + typeof(temperatura)) 
-        if(isNaN(temperatura)){
+        if(isNaN(temperatura)){ //valida si és un número
             console.log("Error la temperatura no és un número.");
         }else{
-            if(temperatura < 18){
+            if(temperatura < 18){ //si la temperatura és inferior a 18 graus, s'activa la calefacció
                 console.log("Calefacció activa.");
             }else{
                 console.log("Sistema en repòs.")

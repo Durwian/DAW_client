@@ -11,23 +11,24 @@
     <script>
         /**** Escriu aquí el teu codi ****/
         let preu;
-        while(isNaN(preu)){
+
+        while(isNaN(preu)){ //validació del preu introduït per l'usuari
             preu = parseFloat(window.prompt("Quin preu posem?"));
             if(isNaN(preu)){alert("Cal escriure un valor numèric")}
         }
-       // function processarPreu(numero, function call()){
 
-        //}
-        
+        // Funció aplicarIva: que calculi i retorni el valor sumant-li un 21% d'IVA.
         const aplicarIva = function(preu){return preu * 0.21;};
+
+        //aplicarDescompte: que apliqui un descompte del 10%
         const aplicarDescompte = () => preu * 0.1;
 
+        // Mostra per consola
         console.log(preu);
         console.log((aplicarIva(preu) + preu));
         console.log((preu - aplicarDescompte()));
         console.log((preu + aplicarIva(preu) + aplicarDescompte(preu)));
-    /*• aplicarIva: que calculi i retorni el valor sumant-li un 21% d'IVA.
-    • aplicarDescompte: que apliqui un descompte del 10%*/
+    
         
     </script>
 </body>

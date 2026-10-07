@@ -1,10 +1,5 @@
-/**** Crearem un array d'objectes literals anomenat biblioteca on cada objecte representi un llibre amb les propietats: titol, autor i preu. Per fer-ho atractiu l'array serà de 20 llibres mínim amb preus variats per poder veure el correcte funcionament del nostre codi.
-Posteriorment, escriurem codi per fer les següents operacions:
-    • Seleccionar el primer llibre de l'array i utilitzar un bucle for...in per recórrer totes les seves claus i valors de forma dinàmica, mostrant-los per consola.
-    • Aplicar el mètode d'array .filter() per trobar només aquells llibres que tinguin un preu inferior a 20 €.
-    • Aplicar el mètode .map() sobre l'array filtrat per generar una nova llista que contingui exclusivament els títols d'aquests llibres econòmics, i mostrar-los per consola on només caldrà que es vegi només el títol i el preu.****/
-
-const biblioteca = [
+//Biblioteca de llibres
+const biblioteca = [ 
   {
     titol: "Nit blava a Ginebra",
     autor: "Eva Comas-Arnal",
@@ -106,11 +101,16 @@ const biblioteca = [
     preu: 12.90
   }
 ];
- 
+
+// Mostra el títol i el preu del primer llibre de la biblioteca
 for (tipus in biblioteca[0]) {
   console.log(`${tipus}: ${biblioteca[0][tipus]}`);
 }
 
-biblioteca.filter((llibre) => llibre.preu < 20).map((llibre) => {
+//Filtra els llibres
+const llibresFiltrats = biblioteca.filter((llibre) => llibre.preu < 20);
+
+// Mostra els llibres filtrats
+llibresFiltrats.forEach((llibre) => {
   console.log(`Títol: ${llibre.titol}, Preu: ${llibre.preu}€`);
 });
