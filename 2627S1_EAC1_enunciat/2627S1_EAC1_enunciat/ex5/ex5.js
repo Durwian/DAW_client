@@ -1,11 +1,33 @@
 /**** Escriu aquí el teu codi ****/
 
 class Article {
-    preu    
+    #preu    //
     constructor(nom, preu){
         this.nom = nom;
-        this.preu = preu;
+        this.#preu = preu;
     }
+
+    get preu(){ // getter
+        return this.#preu;
+    }
+    set preu(preuNou){ // setter
+        if(preuNou > 0){this.#preu = preuNou};
+    }
+}
+
+//classe heretada d'Article
+class ArticleImportat extends Article{
+    constructor(nom, preu, aranzels){
+        super(nom, preu);
+        this.aranzels = aranzels;
+    }
+
+    get preu(){
+        return `${super.preu + this.aranzels} €`;
+    }
+
+
+
 }
 
 
