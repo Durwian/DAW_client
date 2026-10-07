@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex3</title>
+</head>
+
+<body>
+    <script>
+        /**** Escriu aquí el teu codi ****/
+        let preu;
+        while(isNaN(preu)){
+            preu = parseFloat(window.prompt("Quin preu posem?"));
+            if(isNaN(preu)){alert("Cal escriure un valor numèric")}
+        }
+       // function processarPreu(numero, function call()){
+
+        //}
+        
+        const aplicarIva = function(preu){return preu * 0.21;};
+        const aplicarDescompte = () => preu * 0.1;
+
+        console.log(preu);
+        console.log((aplicarIva(preu) + preu));
+        console.log((preu - aplicarDescompte()));
+        console.log((preu + aplicarIva(preu) + aplicarDescompte(preu)));
+    /*• aplicarIva: que calculi i retorni el valor sumant-li un 21% d'IVA.
+    • aplicarDescompte: que apliqui un descompte del 10%*/
+        
+    </script>
+</body>
+
+</html>
