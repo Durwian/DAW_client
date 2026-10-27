@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EAC2 - Ex1</title>
 </head>
 <body>
 
@@ -18,22 +18,33 @@
         let text = document.getElementById('text');
         let llista = document.getElementById('llista');
         let actual = document.getElementById('actual');
+        const regex = '[0-9]+';
         
-        
+        //cada cop que apretem una tecla i per tan canviem el contingut, afegeix al <li> i comprova el color.
         text.addEventListener('input',()=>{
             actual.textContent = text.value;
-            
+            if(text.value.trim().length < 5){
+                actual.style.color = "green";
+            }
+            if(text.value.trim().length > 5){
+                 actual.style.color = "blue";
+            }
+            if(text.value.match(regex)){
+                 actual.style.color = "red";
+            }          
         });
 
+        // en apretar "Enter" crea el nou <li> i canvia actual per nou li, si l'usuari no posa res genera l'alert.
         text.addEventListener('keydown',(e)=>{
             if(e.key === 'Enter'){
                 if(!(text.value.trim() == "")){
-                    let li = document.createElement('li');
+                    let nouLi = document.createElement('li');
                     llista.appendChild(li);
-                    actual = li;
+                    actual = nouLi;
                     text.value = "";
+                }else{
+                    alert("No has posat res al text!");
                 }
-                alert("No has posat res al text!");
             }           
         });
 
