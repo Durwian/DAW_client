@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex1</title>
+</head>
+
+<body>
+    <script>
+              
+        let temperatura = "20.5";
+        console.log("TEMPERATURA ES DE TIPUS: " + typeof(temperatura));
+        temperatura = parseFloat(temperatura); //Aprofitem el tipat dèbil i així no creem una altra variable
+        console.log("ARA, TEMPERATURA ES DE TIPUS: " + typeof(temperatura)) 
+        if(isNaN(temperatura)){ //valida si és un número
+            console.log("Error la temperatura no és un número.");
+        }else{
+            if(temperatura < 18){ //si la temperatura és inferior a 18 graus, s'activa la calefacció
+                console.log("Calefacció activa.");
+            }else{
+                console.log("Sistema en repòs.")
+            }   
+        }
+
+    </script>
+</body>
+
+</html>

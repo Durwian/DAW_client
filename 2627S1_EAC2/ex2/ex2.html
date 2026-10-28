@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAC2 - Ex2</title>
+</head>
+<body>
+    <h1>Formulari</h1>
+    <form action="" method="POST">
+        <label for="nom">Nom:</label>
+        <input type="text" name="nom" id="nom">
+        <label for="cognom">Cognom:</label>
+        <input type="text" name="cognom" id="cognom">
+        <label for="dataNaix">Data Naixment:</label>
+        <input type="text" name="dataNaix" id="dataNaix">
+    </form>
+    <p id="missatge"></p>
+    <button type="submit" id="registrar">Registrar</button>
+
+    <script>
+        let nom = document.getElementById('nom');
+        let cognom = document.getElementById('cognom');
+        let dataNaixement = document.getElementById('dataNaix');
+        let missatge = document.getElementById('missatge');
+        let registrar = document.getElementById('registrar');
+        let regex = '^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$'
+        let textMissatge = ["","","",""];
+
+        nom.addEventListener('input', ()=>{
+            if(nom.value == ""){
+                textMissatge[0] = 'El camp NOM no pot estar buit';
+            }else{
+                textMissatge[0] = "";
+            }
+            escriuMissatge();
+        })
+
+        cognom.addEventListener('input', ()=>{
+            if(cognom.value == ""){
+                textMissatge[1] = 'El camp COGNOM no pot estar buit';
+            }else{
+                textMissatge[1] = "";
+            }
+            escriuMissatge();
+        })
+
+        dataNaixement.addEventListener('input', (e)=>{
+            if(dataNaixement.value == ""){
+                textMissatge[2] = 'El camp DATA_NAIXMENT no pot estar buit';
+            }else if(!dataNaixement.value.match(regex)){
+                textMissatge[2] = "";
+                textMissatge[3] = 'El camp DATA_NAIXEMENT ha de tenir el següent format dd/mm/AAAA';
+            }else{
+                textMissatge[2] = "";
+                textMissatge[3] = "";
+            }
+            escriuMissatge();
+        })
+
+        function escriuMissatge(){
+            missatge.innerText = "";
+            for(sentencia in textMissatge){
+                if(!sentencia !== ""){
+                    missatge.innerHTML = textMissatge
+                    .join('<br>')
+                }else{
+                    missatge.outerHTML = '<br>';
+                }
+                
+            }
+            
+        }
+        registrar.addEventListener('click',(e)=>{
+            e.preventDefault();
+
+        })
+    </script>
+</body>
+</html>
