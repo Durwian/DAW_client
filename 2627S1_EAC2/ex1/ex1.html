@@ -11,18 +11,25 @@
 
         <input type="text" name="text" id="text" placeholder="Escriu aluna cosa...">
         <ul id="llista">
-            <li id="actual"></li>
         </ul>
   
     <script>
         let text = document.getElementById('text');
         let llista = document.getElementById('llista');
-        let actual = document.getElementById('actual');
         const regex = '[0-9]+';
+        let actual;
         
         //cada cop que apretem una tecla i per tan canviem el contingut, afegeix al <li> i comprova el color.
         text.addEventListener('input',()=>{
-            actual.textContent = text.value;
+
+            if(actual){
+                actual.textContent = text.value;
+            }else{
+                actual = document.createElement('li');
+                llista.appendChild(actual);
+                actual.textContent = text.value;
+            }
+
             if(text.value.trim().length < 5){
                 actual.style.color = "green";
             }
@@ -31,7 +38,7 @@
             }
             if(text.value.match(regex)){
                  actual.style.color = "red";
-            }          
+            }
         });
 
         // en apretar "Enter" crea el nou <li> i canvia actual per nou li, si l'usuari no posa res genera l'alert.
@@ -39,7 +46,7 @@
             if(e.key === 'Enter'){
                 if(!(text.value.trim() == "")){
                     let nouLi = document.createElement('li');
-                    llista.appendChild(li);
+                    llista.appendChild(nouLi);
                     actual = nouLi;
                     text.value = "";
                 }else{

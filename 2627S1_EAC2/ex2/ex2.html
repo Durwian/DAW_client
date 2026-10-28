@@ -7,74 +7,97 @@
 </head>
 <body>
     <h1>Formulari</h1>
-    <form action="" method="POST">
+    <form action="#" method="POST">
         <label for="nom">Nom:</label>
         <input type="text" name="nom" id="nom">
         <label for="cognom">Cognom:</label>
         <input type="text" name="cognom" id="cognom">
         <label for="dataNaix">Data Naixment:</label>
         <input type="text" name="dataNaix" id="dataNaix">
+    
+        <ul id="missatge"></ul>
+        <button type="submit" id="registrar">Registrar</button>
     </form>
-    <p id="missatge"></p>
-    <button type="submit" id="registrar">Registrar</button>
-
     <script>
-        let nom = document.getElementById('nom');
-        let cognom = document.getElementById('cognom');
-        let dataNaixement = document.getElementById('dataNaix');
+        let campNom = document.getElementById('nom');
+        let campCognom = document.getElementById('cognom');
+        let campDataNaixement = document.getElementById('dataNaix');
         let missatge = document.getElementById('missatge');
         let registrar = document.getElementById('registrar');
-        let regex = '^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$'
-        let textMissatge = ["","","",""];
+        let regex = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/
 
-        nom.addEventListener('input', ()=>{
-            if(nom.value == ""){
-                textMissatge[0] = 'El camp NOM no pot estar buit';
+
+        function validarNom(){
+            if(campNom.value == ""){
+                mostraNotificacio("nomNotif", 'El camp NOM no pot estar buit');
+                campNom.style.borderColor = "red";
             }else{
-                textMissatge[0] = "";
+                campNom.style.borderColor = "";
+                return 0;
             }
-            escriuMissatge();
-        })
-
-        cognom.addEventListener('input', ()=>{
-            if(cognom.value == ""){
-                textMissatge[1] = 'El camp COGNOM no pot estar buit';
-            }else{
-                textMissatge[1] = "";
-            }
-            escriuMissatge();
-        })
-
-        dataNaixement.addEventListener('input', (e)=>{
-            if(dataNaixement.value == ""){
-                textMissatge[2] = 'El camp DATA_NAIXMENT no pot estar buit';
-            }else if(!dataNaixement.value.match(regex)){
-                textMissatge[2] = "";
-                textMissatge[3] = 'El camp DATA_NAIXEMENT ha de tenir el següent format dd/mm/AAAA';
-            }else{
-                textMissatge[2] = "";
-                textMissatge[3] = "";
-            }
-            escriuMissatge();
-        })
-
-        function escriuMissatge(){
-            missatge.innerText = "";
-            for(sentencia in textMissatge){
-                if(!sentencia !== ""){
-                    missatge.innerHTML = textMissatge
-                    .join('<br>')
-                }else{
-                    missatge.outerHTML = '<br>';
-                }
-                
-            }
-            
         }
+
+        function validarCognom(){
+            if(campCognom.value == ""){
+                mostraNotificacio("cognomNotif", "El camp COGNOM no pot estar buit");
+                campCognom.style.borderColor = "red";
+            }else{
+                campCognom.style.borderColor = "";
+                return 0;
+            }
+        }
+
+        function validarDataNaixement(){
+            if(campDataNaixement.value == ""){
+                mostraNotificacio("naixementNotif", 'El camp DATA_NAIXMENT no pot estar buit');
+                campDataNaixement.style.borderColor = "red";
+            }else if(!campDataNaixement.value.match(regex)){
+                mostraNotificacio("naixementFormat", 'El camp DATA_NAIXEMENT ha de tenir el següent format dd/mm/AAAA');
+                campDataNaixement.style.borderColor = "red";
+            }else{
+                campDataNaixement.style.borderColor = "";
+                return 0;
+            }
+        }
+
+       function mostraNotificacio(camp, contingutMissatge){
+            let element = document.getElementById(camp);
+            if(element){
+                if(contingutMissatge == ""){
+                    element.remove();
+                }else{
+                    element.textContent = contingutMissatge;
+                }
+            }else if(contingutMissatge != ""){
+                let li = document.createElement('li');
+                li.id = camp;
+                li.textContent = contingutMissatge;
+                li.style.color = 'red';
+                li.style.listStyle = "none";
+                missatge.appendChild(li);
+            }
+        }
+
+
+
+        function validarForm(){
+            missatge.textContent = "";
+            validarNom();
+            validarCognom();
+            validarDataNaixement();
+            if(validarNom() == 0 && validarCognom() == 0 && validarDataNaixement() == 0){
+                missatge.style.color = "green";
+                missatge.textContent = "Formulari enviat!"
+            }
+        }
+
+
+
         registrar.addEventListener('click',(e)=>{
             e.preventDefault();
+            validarForm();
+        });
 
-        })
     </script>
 </body>
 </html>
