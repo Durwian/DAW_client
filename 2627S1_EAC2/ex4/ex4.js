@@ -1,47 +1,77 @@
 import { validarNomUsuari, validarEdat, validarCodiPromo } from './validador.js';
 
 
-
+let form = document.querySelector('form');
 let submit = document.getElementById('btnEnviar');
-let nomInput = document.querySelector('#nom');
-let edatInput = document.querySelector('#edat');
-let codiInput = document.querySelector('#codi');
-let errorSpan = document.querySelectorAll('.error');
 
-submit.addEventListener('click',(e)=>{
+//llibreria dels elements
+const camps = [
+    {
+        input: document.querySelector('#nom'),
+        error: document.querySelector('#nom').nextElementSibling,
+        validar: (valor) => validarNomUsuari(valor),
+        missatge: "El nom d'usuari ha de tenir mínim 4 caràcters"
+    },
+    {
+        input: document.querySelector('#edat'),
+        error: document.querySelector('#edat').nextElementSibling,
+        validar: (valor) => valor.trim() !== '' && validarEdat(Number(valor)),
+        missatge: "Has de ser major o igual a 18 anys"
+    },
+    {
+        input: document.querySelector('#codi'),
+        error: document.querySelector('#codi').nextElementSibling,
+        validar: (valor) => validarCodiPromo(valor),
+        missatge: "El codi ha de tenir 4 lletres majúscules i 3 xifres"
+    }
+];
+
+
+
+//validació
+function validarCamp(camp) {
+    let valor = camp.input.value;
+
+     
+    if (!camp.validar(valor)) {
+        addError(camp.error, camp.input, camp.missatge);
+        return false;
+    }
+
+    removeError(camp.error, camp.input);
+    return true;
+}
+
+let formulariValid = () => {
+    let valid = true;
+
+    camps.forEach((camp) => {
+        if (!validarCamp(camp)) {
+            valid = false;
+        }
+    });
+
+    return valid;
+};
+
+//apliquem addEVEntListener a inputs i botó
+camps.forEach((camp) => {
+    camp.input.addEventListener('blur', () => {
+        validarCamp(camp);
+    camp.input.addEventListener('input', () =>{
+        validarCamp(camp);
+    })
+    });
+});
+
+form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if(validarNomUsuari(nomInput) && validarEdat(edatInput) && validarCodiPromo(codiInput)){
-        //si fós correcte faria el submit();
-        alert(`Formulari a nom de ${nomInput.value} enviat.`);
-    }
+    if (formulariValid()) {
+        alert(`Formulari a nom de ${camps[0].input.value} enviat.`);
+    };
 });
-
-nomInput.addEventListener('input',()=>{
-    if(!validarNomUsuari(nomInput.value)){
-        errorSpan[0].textContent = "El nom d'usuari ha de tenir mínim 4 caracters";
-        nomInput.classList.add('input-error');
-    }else{
-        errorSpan[0].textContent = "";
-        nomInput.classList.remove('input-error');
-    }
-});
-
-edatInput.addEventListener('blur',()=>{
-    if(!validarEdat(parseFloat(edatInput.value))){
-        addError(errorSpan[1], edatInput,"Has de ser major de 18 anys");
-    }else{
-        removeError(errorSpan[1], nomInput);
-    }
-});
-
-codiInput.addEventListener('blur',()=>{
-    if(!validarCodiPromo()){
-        addError(errorSpan[2],codiInput,"El codi ha de ser de 4 caracters en majúscula i dos xifres");
-    }else{
-        removeError(errorSpan[2], codiInput);
-    }
-});
-
+    
+//funcions per mostrar i treure errors, per no repetir codi
 function addError(span, input, text){
     span.textContent = text;
     input.classList.add('input-error');
@@ -51,3 +81,6 @@ function removeError(span,input){
     span.textContent = "";
     input.classList.remove('input-error');
 }
+
+
+

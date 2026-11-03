@@ -9,6 +9,6 @@ function validarEdat(edat){
 }
 
 function validarCodiPromo(codi){
-    let regex = /^[A-Z]{4}\d{3}$/;
+    let regex = /^[A-Z]{4}\d{2}$/;
     return regex.test(codi);
 }
