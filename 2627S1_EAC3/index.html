@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Far de la Costa - Control DOM</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #87CEEB; /* Mode dia per defecte */
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s ease;
+    }
+
+    /* Mode Nit (Classe afegida dinàmicament) */
+    body.night-mode {
+      background-color: #0d1b2a;
+      background-image: radial-gradient(white 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Tauler de Control */
+    #control-panel {
+      border: 2px solid #00ff00;
+      background-color: #000;
+      color: #00ff00;
+      padding: 15px 20px;
+      margin-bottom: 40px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+
+    #control-panel h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    #control-panel ul {
+      list-style: none;
+    }
+
+    #control-panel li {
+      margin: 5px 0;
+    }
+
+    /* Contenidor del Far (Pixel Grid) */
+    #lighthouse-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Filera del Far */
+    .row {
+      display: flex;
+    }
+
+    /* Píxels */
+    .pixel {
+      width: 24px;
+      height: 24px;
+      background-color: transparent;
+    }
+
+    /* Colors de les parts del Far */
+    .pixel.red { background-color: #d62828; }
+    .pixel.white { background-color: #f1faee; }
+    .pixel.grey { background-color: #6c757d; }
+    
+    /* Finestres i cúpula */
+    .pixel.window {
+      background-color: #1d3557;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .pixel.window.lit {
+      background-color: #ffee58 !important; /* Llum encesa */
+      box-shadow: 0 0 8px #ffee58;
+    }
+
+    .pixel.cupola {
+      background-color: #d62828;
+      cursor: pointer;
+    }
+
+    /* Feix de Llum principal (generats dinàmicament) */
+    .pixel.beam {
+      background-color: #fff176;
+      box-shadow: 0 0 12px #fff176;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tauler d'Instruccions -->
+  <div id="control-panel">
+    <h3>SISTEMA DE CONTROL DEL FAR:</h3>
+    <ul>
+      <li>[L] - Encendre / Apagar Llum Principal</li>
+      <li>[G] - Mode Manteniment (Bloqueig de Llums)</li>
+      <li>[N] - Mode Nit / Dia</li>
+    </ul>
+  </div>
+
+  <!-- Estructura Pixel Art del Far -->
+  <div id="lighthouse-container">
+    <!-- Cúpula / Teulat (3 píxels vermells) -->
+    <div class="row" id="cupola-group">
+      <div class="pixel"></div>
+      <div class="pixel cupola"></div>
+      <div class="pixel cupola"></div>
+      <div class="pixel cupola"></div>
+      <div class="pixel"></div>
+    </div>
+
+    <!-- Lanterna (Llum principal) -->
+    <div class="row" id="lantern-row">
+      <div class="pixel"></div>
+      <div class="pixel grey"></div>
+      <div class="pixel white" id="lantern-center"></div>
+      <div class="pixel grey"></div>
+      <div class="pixel"></div>
+    </div>
+
+    <!-- Secció 1 Torre (amb finestra 1) -->
+    <div class="row">
+      <div class="pixel"></div>
+      <div class="pixel red"></div>
+      <div class="pixel window" id="win-1"></div>
+      <div class="pixel red"></div>
+      <div class="pixel"></div>
+    </div>
+
+    <!-- Secció 2 Torre -->
+    <div class="row">
+      <div class="pixel"></div>
+      <div class="pixel white"></div>
+      <div class="pixel white"></div>
+      <div class="pixel white"></div>
+      <div class="pixel"></div>
+    </div>
+
+    <!-- Secció 3 Torre (amb finestra 2) -->
+    <div class="row">
+      <div class="pixel"></div>
+      <div class="pixel red"></div>
+      <div class="pixel window" id="win-2"></div>
+      <div class="pixel red"></div>
+      <div class="pixel"></div>
+    </div>
+
+    <!-- Secció 4 Torre -->
+    <div class="row">
+      <div class="pixel"></div>
+      <div class="pixel white"></div>
+      <div class="pixel white"></div>
+      <div class="pixel white"></div>
+      <div class="pixel"></div>
+    </div>
+
+    <!-- Secció 5 Torre (amb finestra 3) -->
+    <div class="row">
+      <div class="pixel"></div>
+      <div class="pixel red"></div>
+      <div class="pixel window" id="win-3"></div>
+      <div class="pixel red"></div>
+      <div class="pixel"></div>
+    </div>
+
+    <!-- Base del Far -->
+    <div class="row">
+      <div class="pixel grey"></div>
+      <div class="pixel grey"></div>
+      <div class="pixel grey"></div>
+      <div class="pixel grey"></div>
+      <div class="pixel grey"></div>
+    </div>
+  </div>
+
+  <script src="lighthouse.js"></script>
+</body>
+</html>
