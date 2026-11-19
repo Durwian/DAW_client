@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validació de Formulari amb JustValidate</title>
+    <!-- Importar JustValidate des de CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/just-validate@latest/dist/just-validate.production.min.js"></script>
+    <style>
+      /* Estils bàsics per al formulari i els missatges d'error */
+          body {
+              font-family: Arial, sans-serif;
+              margin: 20px;
+          }
+          form {
+              max-width: 400px;
+              padding: 20px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+          }
+          .form-group {
+              margin-bottom: 15px;
+          }
+          label {
+              display: block;
+              margin-bottom: 5px;
+              font-weight: bold;
+          }
+          input[type="text"],
+          input[type="number"],
+          input[type="email"] {
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              box-sizing: border-box; /* Important per incloure padding al width */
+          }
+          button {
+              background-color: #4CAF50;
+              color: white;
+              padding: 10px 15px;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+          }
+          /* Estil per als missatges d'error de JustValidate */
+          .js-validate-error-label {
+              color: red;
+              font-size: 0.9em;
+              margin-top: 5px;
+          }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Formulari de Contacte</h3>
+      <form id="formulariContacte">
+        <div class="form-group">
+          <label for="nom">Nom complet:</label>
+          <input type="text" id="nom" name="nom" />
+        </div>
+        <div class="form-group">
+          <label for="email">Correu electrònic:</label>
+          <input type="email" id="email" name="email" />
+        </div>
+        <div class="form-group">
+          <label for="edat">Edat:</label>
+          <input type="number" id="edat" name="edat" />
+        </div>
+        <button type="submit">Enviar</button>
+      </form>
+      <p id="missatge"></p>
+    </div>
+
+    <script>
+      // Inicialitzar JustValidate
+      const validator = new JustValidate('#formulariContacte', {
+          // Configuració opcional per localitzar o canviar l'estil
+          errorFieldCssClass: 'is-invalid',
+          errorLabelCssClass: 'js-validate-error-label',
+      });
+
+      // Afegir regles de validació per als camps
+      validator
+        .addField('#nom', [
+          { rule: 'required', errorMessage: 'El nom és obligatori' },
+          { rule: 'minLength', value: 3, errorMessage: 'Mínim 3 caràcters' },
+        ])
+        .addField('#email', [
+          { rule: 'required', errorMessage: 'El correu és obligatori' },
+          { rule: 'email', errorMessage: 'El correu no és vàlid' },
+        ])
+        .addField('#edat', [
+          { rule: 'required', errorMessage: "L'edat és obligatòria" },
+          { rule: 'number', errorMessage: 'Només es permeten números' },
+          { rule: 'minNumber', value: 18, errorMessage: "Has de ser major d'edat" },
+        ])
+        .onSuccess(() => {
+          // Mostrar missatge d'èxit quan totes les validacions són correctes
+          document.getElementById("missatge").textContent = "Formulari correcte!";
+          document.getElementById("missatge").className = "success-message";
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validació de Formulari amb JustValidate</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Formulari de Contacte</h3>
+      <form id="formulariContacte">
+        <div class="form-group">
+          <label for="nom">Nom complet:</label>
+          <input type="text" id="nom" name="nom" />
+        </div>
+        <div class="form-group">
+          <label for="email">Correu electrònic:</label>
+          <input type="email" id="email" name="email" />
+        </div>
+        <div class="form-group">
+          <label for="edat">Edat:</label>
+          <input type="number" id="edat" name="edat" />
+        </div>
+        <button type="submit">Enviar</button>
+      </form>
+      <p id="missatge"></p>
+    </div>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
