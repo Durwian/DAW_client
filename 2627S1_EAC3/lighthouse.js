@@ -3,18 +3,18 @@ let body = document.querySelector('body');
 let lantern = document.getElementById('lantern-row');
 let manteniment = false;
 
-activarHovers();
 
-function activarHovers(){
-    for(let finestra of finestres){
-        finestra.addEventListener('mouseenter',() =>{
+for(let finestra of finestres){
+    finestra.addEventListener('mouseenter',() => {
+        if(!manteniment){
             finestra.classList.add('lit');
-        });
-        finestra.addEventListener('mouseleave',() =>{
-            finestra.classList.remove('lit');
-        });
-    }
+        }
+    });
+    finestra.addEventListener('mouseleave',() => {
+        finestra.classList.remove('lit')});
 }
+
+
 
 function modeNit(){
     body.classList.toggle('night-mode');
@@ -26,7 +26,8 @@ function obrirLlums(){
             for(let elem of focus){
                 elem.remove();
             }
-        }else if(document.querySelector('night-mode') > 0){
+            console.log('llums apagades');
+        }else if(document.querySelectorAll('.night-mode') > 0){
             let avis = document.createElement('div');
             avis.setAttribute('avis');
             avis.textContent = 'Encara no és de nit! No puc obrir els llums del far...';
@@ -36,11 +37,13 @@ function obrirLlums(){
             avis.style.backgroundColor = '#0000';
             avis.style.border = '2px solid #00ff00';
             body.append(avis);
+            
         }else{
             let nouDiv = document.createElement('div');
             nouDiv.classList.add('pixel','beam'); 
             lantern.append(nouDiv.cloneNode());
             lantern.prepend(nouDiv);
+            console.log('llums enceses');
         }
         document.addEventListener('keydown', eliminarAvis, { once: true });
         document.addEventListener('mousemove', eliminarAvis, { once: true });
@@ -54,22 +57,23 @@ function eliminarAvis(){
 }
 
 body.addEventListener('keydown', function(e) {
-    if(manteniment){return;}
+    
     if( e.key.toLowerCase() === 'n'){
+        if(manteniment){return;}
         modeNit();
     }
     if( e.key.toLowerCase() === 'l'){
+        if(manteniment){return;}
         obrirLlums();
     }
 
     if(e.key.toLowerCase() === 'g'){
         if(manteniment){
             manteniment = false;
+            console.log('manteniment desactivat');
         }else{
-            for(let finestra of finestres){
-                finestra.removeEventListener('mouseenter');
-                finestra.addEventListener('mouseleave');
-            }           
+            manteniment = true;
+            console.log('manteniment activat');
         }
     }
 });
