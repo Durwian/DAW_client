@@ -1,8 +1,20 @@
-let finestres = document.getElementsByClassName('window');
-let body = document.querySelector('body');
+let finestres = document.querySelectorAll('.window');
+let body = document.body;
 let lantern = document.getElementById('lantern-row');
+let cupula = document.getElementById('cupola-group');
 let manteniment = false;
 
+cupula.addEventListener('mouseenter', () =>{
+    if(!manteniment){
+        finestres.forEach(finestra => {
+            finestra.classList.add('lit');});
+    }
+});
+
+cupula.addEventListener('mouseleave', () => {
+    finestres.forEach(finestra => {
+        finestra.classList.remove('lit');});
+});
 
 for(let finestra of finestres){
     finestra.addEventListener('mouseenter',() => {
@@ -12,7 +24,7 @@ for(let finestra of finestres){
     });
     finestra.addEventListener('mouseleave',() => {
         finestra.classList.remove('lit')});
-}
+};
 
 
 
@@ -27,17 +39,19 @@ function obrirLlums(){
                 elem.remove();
             }
             console.log('llums apagades');
-        }else if(document.querySelectorAll('.night-mode') > 0){
+        }else if(!body.classList.contains('night-mode')){
             let avis = document.createElement('div');
-            avis.setAttribute('avis');
+            avis.classList.add('avis');
             avis.textContent = 'Encara no és de nit! No puc obrir els llums del far...';
             avis.style.position = 'fixed';
-            avis.style.top = '30px';
+            avis.style.top = '150px';
             avis.style.color = '#00ff00';
-            avis.style.backgroundColor = '#0000';
+            avis.style.background = '#000000';
             avis.style.border = '2px solid #00ff00';
             body.append(avis);
-            
+            document.addEventListener('keyup', () =>
+                setTimeout(eliminarAvis,5000), { once: true });
+            document.addEventListener('mousemove', eliminarAvis, { once: true });
         }else{
             let nouDiv = document.createElement('div');
             nouDiv.classList.add('pixel','beam'); 
@@ -45,14 +59,13 @@ function obrirLlums(){
             lantern.prepend(nouDiv);
             console.log('llums enceses');
         }
-        document.addEventListener('keydown', eliminarAvis, { once: true });
-        document.addEventListener('mousemove', eliminarAvis, { once: true });
+        
     }
 
 function eliminarAvis(){
-    let avis = document.querySelector('avis');
+    let avis = document.querySelector('.avis');
     if(avis){
-        remove(avis);
+      avis.remove();
     }
 }
 
